@@ -1,9 +1,7 @@
 
 package Server;
 
-import Connection.BDconnector;
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
 
 
