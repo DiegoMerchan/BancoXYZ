@@ -19,7 +19,7 @@ public class Servidor extends Sconnector {
   public void startServer() throws ClassNotFoundException{ // Con este metodo iniciamos el server
       try
         {
-            System.out.println("Esperando..."); //Esperando conexión
+            System.out.println("Esperando conexión en puerto " + ss.getLocalPort()); //Esperando conexión
 
             cs = ss.accept(); //Accept comienza el socket y espera una conexión desde un cliente
 
