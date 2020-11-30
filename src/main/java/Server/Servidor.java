@@ -1,11 +1,14 @@
 
 package Server;
 
+import Connection.ClienteBanco;
 import Connection.Sconnector;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class Servidor extends Sconnector {
     
@@ -13,7 +16,7 @@ public class Servidor extends Sconnector {
        super("servidor"); // iniciamos una instancia de Socket tipo servidor
    } 
    
-  public void startServer(){ // Con este metodo iniciamos el server
+  public void startServer() throws ClassNotFoundException{ // Con este metodo iniciamos el server
       try
         {
             System.out.println("Esperando..."); //Esperando conexión
@@ -23,19 +26,20 @@ public class Servidor extends Sconnector {
             System.out.println("Cliente en línea");
 
             //Se obtiene el flujo de salida del cliente para enviarle mensajes
-            salidaCliente = new DataOutputStream(cs.getOutputStream());
+            salidaCliente = new ObjectOutputStream(cs.getOutputStream());
 
             //Se le envía un mensaje al cliente usando su flujo de salida
-            salidaCliente.writeUTF("Petición recibida y aceptada");
+            
 
             //Se obtiene el flujo entrante desde el cliente
-            BufferedReader entrada = new BufferedReader(new InputStreamReader(cs.getInputStream()));
-
-            while((mensajeServidor = entrada.readLine()) != null) //Mientras haya mensajes desde el cliente
-            {
-                //Se muestra por pantalla el mensaje recibido
-                System.out.println(mensajeServidor);
-            }
+            
+            
+            ObjectInputStream inObjeto = new ObjectInputStream(cs.getInputStream());
+ 
+            //Se muestra por pantalla el mensaje recibido
+            ClienteBanco nuevoCliente =  (ClienteBanco) inObjeto.readObject();
+            System.out.println("Recibido en el servidor un nuevo cliente:" + nuevoCliente.getNombre());
+            
 
             System.out.println("Fin de la conexión");
 

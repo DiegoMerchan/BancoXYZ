@@ -1,9 +1,11 @@
 
 package Client;
 
+import Connection.ClienteBanco;
 import Connection.Sconnector;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 
 public class Cliente extends Sconnector{
     
@@ -11,20 +13,22 @@ public class Cliente extends Sconnector{
        super("cliente"); // iniciamos una instancia de Socket tipo cliente
    } 
    
-   public void startCliente(){ // Con este metodo iniciamos el cliente
+   public void NuevoCliente(ClienteBanco cli){ // Con este metodo iniciamos el cliente
        try
         {
             //Flujo de datos hacia el servidor
-            salidaServidor = new DataOutputStream(cs.getOutputStream());
-
-            //Se enviarán dos mensajes
-            for (int i = 0; i < 2; i++)
-            {
-                //Se escribe en el servidor usando su flujo de datos
-                salidaServidor.writeUTF("Este es el mensaje número " + (i+1) + "\n");
-            }
+            salidaServidor = new ObjectOutputStream(cs.getOutputStream());
+            System.out.println("Stream de objetos creado con exito");
+            
+           // enviamos el objeto al servidor 
+                
+            salidaServidor.writeObject(cli);
+            
+            System.out.println("Objeto nuevo cliente enviado al servidor");                    
 
             cs.close();//Fin de la conexión
+            
+            System.out.println("Conexion cerrada");
 
         }
         catch (IOException e)

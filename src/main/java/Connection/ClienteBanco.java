@@ -1,6 +1,9 @@
-package Client;
+package Connection;
 
-public class ClienteBanco {
+import Client.*;
+import java.io.Serializable;
+
+public class ClienteBanco implements Serializable{
     
     private int idCliente;
     private String nombre;

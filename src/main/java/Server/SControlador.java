@@ -9,8 +9,7 @@ public class SControlador {
 
    
     public static void main(String[] args) throws IOException, SQLException, ClassNotFoundException  {
-        
-      
+            
         
       
         Servidor serv = new Servidor(); // se crea el servidor
