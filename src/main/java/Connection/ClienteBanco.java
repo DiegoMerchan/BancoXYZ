@@ -1,6 +1,5 @@
 package Connection;
 
-import Client.*;
 import java.io.Serializable;
 
 public class ClienteBanco implements Serializable{
@@ -24,6 +23,8 @@ public class ClienteBanco implements Serializable{
         this.telefono = telefono;
         this.ciudad = ciudad;
     }
+
+   
 
     /**
      * @return the idCliente
@@ -132,12 +133,5 @@ public class ClienteBanco implements Serializable{
     public void setCiudad(int ciudad) {
         this.ciudad = ciudad;
     }
-    
-    
-    
+
 }
-
-
-    /**
-     * @return the apellido
-     */

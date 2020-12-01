@@ -53,7 +53,7 @@ public class cControlador {
        System.out.println("4. Cerrar cuenta.");
        System.out.println("5. Hacer consignacion.");
        System.out.println("6. Hacer retiro");
-       System.out.println("7.Salir \n");
+       System.out.println("7. Salir \n");
       
    }
        
@@ -61,24 +61,34 @@ public class cControlador {
        
        public static void crearCliente() throws IOException{
            
-            //Cliente de prueba
+            Cliente cli = new Cliente(); //Se crea el Socket cliente
+            
+            // pedimos por consola los datos del nuevo cliente
+            
+           System.out.println("Por favor digite el ID del cleinte:\n");
+           int idCliente = entrada.nextInt();
+           System.out.println("Por favor digite el Nombre del cleinte:\n");
+           String nombre = entrada.next();
+           System.out.println("Por favor digite el Apellido del cleinte:\n");
+           String apellido = entrada.next();
+           System.out.println("Por favor digite la fecha de nacimiento del cleinte:\n");
+           String fecha_nacimiento = entrada.next();
+           System.out.println("Por favor digite el genero:\n");
+           String genero = entrada.next();
+           System.out.println("Por favor digite la direccion del cleinte:\n");
+           String direccion = entrada.next();
+           System.out.println("Por favor digite numero de telefono del cleinte:\n");
+           int telefono = entrada.nextInt();
+           System.out.println("Por favor digite la ciudad del cleinte:\n");
+           int ciudad = entrada.nextInt();
 
-        int idCliente = 123456;
-        String nombre = "Diego";
-        String apellido = "Merchan";
-        String fecha_nacimiento = "10-10-1990";
-        String genero = "M";
-        String direccion = "Calle 123 # 05-50";
-        int telefono = 123456;
-        int ciudad = 1;   
-        ClienteBanco clientePrueba = new ClienteBanco(idCliente, nombre, apellido, fecha_nacimiento, genero, direccion, telefono, ciudad);
-        
-        
-         
-        Cliente cli = new Cliente(); //Se crea el cliente
-        System.out.println("Iniciando cliente\n");
-        cli.NuevoCliente(clientePrueba);//Se inicia el cliente 
+           // Se crea una nueva instancia de cliente del banco 
            
+           ClienteBanco clienteNuevo = new ClienteBanco(idCliente, nombre, apellido, fecha_nacimiento, genero, direccion, telefono, ciudad);
+           
+            System.out.println("Iniciando cliente\n");
+            cli.NuevoCliente(clienteNuevo);//Se inicia el cliente
+            
        }
     
 }
