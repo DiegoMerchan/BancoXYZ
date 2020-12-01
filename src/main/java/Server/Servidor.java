@@ -17,19 +17,12 @@ public class Servidor extends Sconnector {
       try
         {
             System.out.println("Esperando conexión en puerto " + ss.getLocalPort()); //Esperando conexión
+            
+            
 
             cs = ss.accept(); //Accept comienza el socket y espera una conexión desde un cliente
-
-            System.out.println("Cliente en línea");
-
-            //Se obtiene el flujo de salida del cliente para enviarle mensajes
-            salidaCliente = new ObjectOutputStream(cs.getOutputStream());
-
-            //Se le envía un mensaje al cliente usando su flujo de salida
             
-
-            //Se obtiene el flujo entrante desde el cliente
-            
+            System.out.println("Cliente en línea");      
             
             ObjectInputStream inObjeto = new ObjectInputStream(cs.getInputStream());
  
