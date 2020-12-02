@@ -3,6 +3,7 @@ package Connection;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -16,6 +17,7 @@ public class Sconnector {
     protected Socket cs; //Socket del cliente
     protected DataOutputStream DatoSalidaServidor, DatoSalidaCliente; //Flujo de datos de salida
     protected ObjectOutputStream salidaServidor, salidaCliente; //Flujo de Objetos de salida
+    protected ObjectInputStream entradaServidor, entradaCliente; //Flujo objetos de entreda
     
     public Sconnector(String tipo) throws IOException //Constructor con if si vamos a crear cliente o servidos
     {

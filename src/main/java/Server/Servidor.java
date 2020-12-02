@@ -9,6 +9,10 @@ import java.io.ObjectOutputStream;
 
 public class Servidor extends Sconnector {
     
+    ClienteBanco nuevoCliente;
+    String tipo;
+    
+    
    public Servidor() throws IOException{
        super("servidor"); // iniciamos una instancia de Socket tipo servidor
    } 
@@ -17,29 +21,56 @@ public class Servidor extends Sconnector {
       try
         {
             System.out.println("Esperando conexión en puerto " + ss.getLocalPort()); //Esperando conexión
-            
-            
-
             cs = ss.accept(); //Accept comienza el socket y espera una conexión desde un cliente
+            entradaCliente = new ObjectInputStream(cs.getInputStream()); // inicializamos socket
+            salidaCliente = new ObjectOutputStream (cs.getOutputStream());
+            System.out.println("Cliente en línea");   
+            tipo = (String) entradaCliente.readObject();
+            if ("crearCliente".equals(tipo)) {
+                  System.out.println("Ejecutando crear cliente...\n");
+                  crearCliente();
+            }
+         
+        } catch (IOException e){
+            System.out.println(e.getMessage());
+         }
+       
+      
+  }
+  
+    private void crearCliente() throws ClassNotFoundException{
+        
+        try{
             
-            System.out.println("Cliente en línea");      
-            
-            ObjectInputStream inObjeto = new ObjectInputStream(cs.getInputStream());
- 
-            //Se muestra por pantalla el mensaje recibido
-            
-            ClienteBanco nuevoCliente =  (ClienteBanco) inObjeto.readObject();
+            nuevoCliente =  (ClienteBanco) entradaCliente.readObject();
             System.out.println("Recibido en el servidor un nuevo cliente: " + nuevoCliente.getNombre());
-            
-
+            // EJECUTAR AQUI SQL INSERT NUEVO CLIENTE 
+            salidaCliente.writeObject("msn desde el servidor: Cliente creado con exito");
+            close();
             System.out.println("Fin de la conexión");
 
-            ss.close();//Se finaliza la conexión con el cliente
-        }
-        catch (IOException e)
+            
+            
+        }catch (IOException e)
         {
             System.out.println(e.getMessage());
         }
+        
+
+  }
+    
+  private void close(){
+      
+            try{
+                ss.close();//Se finaliza la conexión con el cliente
+                entradaCliente.close();
+                cs.close();
+                salidaCliente.close();
+            }catch (IOException e)
+        {
+            System.out.println(e.getMessage());
+        }
+            
       
   }
 }
