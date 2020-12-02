@@ -49,6 +49,8 @@ public class OperacionesBD {
         } else {
             try {
                 conn.setAutoCommit(false);
+                System.out.println(""
+                        + "iniciando insercion de datos");
                 SQL = "INSERT INTO Cliente VALUES (" + IdCliente + ", '" +
                        Nombre + "', '" +
                        Apellido + "', '" +
@@ -59,6 +61,7 @@ public class OperacionesBD {
                        Ciudad + ", '" + 
                        password + "')";
                 
+                System.out.println("insercion terminada");
                 stmt.executeUpdate(SQL);  
                 conn.commit();
                 
