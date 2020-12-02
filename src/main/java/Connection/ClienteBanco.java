@@ -12,8 +12,9 @@ public class ClienteBanco implements Serializable{
     private String direccion;
     private int telefono;
     private int ciudad; 
+    private String password;
 
-    public ClienteBanco(int idCliente, String nombre, String apellido, String fecha_nacimiento, String genero, String direccion, int telefono, int ciudad) {
+    public ClienteBanco(int idCliente, String nombre, String apellido, String fecha_nacimiento, String genero, String direccion, int telefono, int ciudad, String password) {
         this.idCliente = idCliente;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -22,6 +23,7 @@ public class ClienteBanco implements Serializable{
         this.direccion = direccion;
         this.telefono = telefono;
         this.ciudad = ciudad;
+        this.password = password;
     }
 
    
@@ -132,6 +134,17 @@ public class ClienteBanco implements Serializable{
      */
     public void setCiudad(int ciudad) {
         this.ciudad = ciudad;
+    }
+    
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password  the direccion to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }
