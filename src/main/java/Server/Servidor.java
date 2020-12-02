@@ -39,6 +39,7 @@ public class Servidor extends Sconnector {
         try {
 
             nuevoCliente = (ClienteBanco) entradaCliente.readObject();
+            System.out.println("Recibido en el servidor un nuevo cliente: " + nuevoCliente.getNombre());
             OperacionesBD.InsertarCliente(nuevoCliente.getIdCliente(),
                     nuevoCliente.getNombre(),
                     nuevoCliente.getApellido(),
@@ -48,6 +49,7 @@ public class Servidor extends Sconnector {
                     nuevoCliente.getTelefono(),
                     nuevoCliente.getCiudad(),
                     nuevoCliente.getPassword());
+            salidaCliente.writeObject("msn desde el servidor: Cliente creado con exito");
             close();
             System.out.println("Fin de la conexión");
 

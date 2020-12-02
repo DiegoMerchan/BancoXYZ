@@ -18,7 +18,7 @@ public class OperacionesBD {
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver"; //
     static final String DB_URL = "jdbc:mysql://localhost:3306/Banco";
     static final String USER = "root";
-    static final String PASS = "password_root";
+    static final String PASS = "root";
     static Connection conn = null;
     static Statement stmt = null;
     static String SQL ="";
