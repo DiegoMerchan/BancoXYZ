@@ -57,23 +57,23 @@ public class cControlador {
         Cliente cli = new Cliente(); //Se crea el Socket cliente
 
         // pedimos por consola los datos del nuevo cliente
-        System.out.println("Por favor digite el ID del cleinte:\n");
+        System.out.println("Por favor digite el ID del cliente:\n");
         int idCliente = entrada.nextInt();
         entrada.nextLine();
-        System.out.println("Por favor digite el Nombre del cleinte:\n");
+        System.out.println("Por favor digite el Nombre del cliente:\n");
         String nombre = entrada.nextLine();
-        System.out.println("Por favor digite el Apellido del cleinte:\n");
+        System.out.println("Por favor digite el Apellido del cliente:\n");
         String apellido = entrada.nextLine();
-        System.out.println("Por favor digite la fecha de nacimiento del cleinte:\n");
+        System.out.println("Por favor digite la fecha de nacimiento del cliente:\n");
         String fecha_nacimiento = entrada.nextLine();
         System.out.println("Por favor digite el genero:\n");
         String genero = entrada.nextLine();
-        System.out.println("Por favor digite la direccion del cleinte:\n");
+        System.out.println("Por favor digite la direccion del cliente:\n");
         String direccion = entrada.nextLine();
-        System.out.println("Por favor digite numero de telefono del cleinte:\n");
+        System.out.println("Por favor digite numero de telefono del cliente:\n");
         int telefono = entrada.nextInt();
         entrada.nextLine();
-        System.out.println("Por favor digite la ciudad del cleinte:\n");
+        System.out.println("Por favor digite la ciudad del cliente:\n");
         int ciudad = entrada.nextInt();
         entrada.nextLine();
         System.out.println("Por favor digite la contraseña a asignar:\n");
