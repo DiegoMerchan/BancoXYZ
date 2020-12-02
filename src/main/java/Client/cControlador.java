@@ -57,22 +57,25 @@ public class cControlador {
         Cliente cli = new Cliente(); //Se crea el Socket cliente
 
         // pedimos por consola los datos del nuevo cliente
-        System.out.println("Por favor digite el ID del cliente:\n");
+        System.out.println("Por favor digite el ID del cleinte:\n");
         int idCliente = entrada.nextInt();
-        System.out.println("Por favor digite el Nombre del cliente:\n");
-        String nombre = entrada.next();
-        System.out.println("Por favor digite el Apellido del cliente:\n");
-        String apellido = entrada.next();
-        System.out.println("Por favor digite la fecha de nacimiento del cliente:\n");
-        String fecha_nacimiento = entrada.next();
-        System.out.println("Por favor digite el género:\n");
-        String genero = entrada.next();
-        System.out.println("Por favor digite la direccion del clinte:\n");
+        entrada.nextLine();
+        System.out.println("Por favor digite el Nombre del cleinte:\n");
+        String nombre = entrada.nextLine();
+        System.out.println("Por favor digite el Apellido del cleinte:\n");
+        String apellido = entrada.nextLine();
+        System.out.println("Por favor digite la fecha de nacimiento del cleinte:\n");
+        String fecha_nacimiento = entrada.nextLine();
+        System.out.println("Por favor digite el genero:\n");
+        String genero = entrada.nextLine();
+        System.out.println("Por favor digite la direccion del cleinte:\n");
         String direccion = entrada.nextLine();
-        System.out.println("Por favor digite numero de telefono del cliente:\n");
+        System.out.println("Por favor digite numero de telefono del cleinte:\n");
         int telefono = entrada.nextInt();
-        System.out.println("Por favor digite la ciudad del cliente:\n");
+        entrada.nextLine();
+        System.out.println("Por favor digite la ciudad del cleinte:\n");
         int ciudad = entrada.nextInt();
+        entrada.nextLine();
         System.out.println("Por favor digite la contraseña a asignar:\n");
         String password = entrada.next();
 
