@@ -36,7 +36,7 @@ public class OperacionesBD {
                     ResultSet.CONCUR_UPDATABLE);
             conexion = true;
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e);
             conexion = false;
         }
         return conexion;
@@ -66,7 +66,7 @@ public class OperacionesBD {
                 conn.commit();
                 
             } catch (SQLException ex) {
-                ex.getSQLState();
+                System.out.println(ex.getSQLState());
             }
         }
 

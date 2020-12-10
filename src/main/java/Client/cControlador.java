@@ -64,9 +64,9 @@ public class cControlador {
         String nombre = entrada.nextLine();
         System.out.println("Por favor digite el Apellido del cliente:\n");
         String apellido = entrada.nextLine();
-        System.out.println("Por favor digite la fecha de nacimiento del cliente:\n");
+        System.out.println("Por favor digite la fecha de nacimiento del cliente: (YYYY/MM/DD)\n");
         String fecha_nacimiento = entrada.nextLine();
-        System.out.println("Por favor digite el genero:\n");
+        System.out.println("Por favor digite el género:\n");
         String genero = entrada.nextLine();
         System.out.println("Por favor digite la direccion del cliente:\n");
         String direccion = entrada.nextLine();
