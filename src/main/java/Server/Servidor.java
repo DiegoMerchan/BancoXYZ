@@ -40,15 +40,7 @@ public class Servidor extends Sconnector {
 
             nuevoCliente = (ClienteBanco) entradaCliente.readObject();
             System.out.println("Recibido en el servidor un nuevo cliente: " + nuevoCliente.getNombre());
-            OperacionesBD.InsertarCliente(nuevoCliente.getIdCliente(),
-                    nuevoCliente.getNombre(),
-                    nuevoCliente.getApellido(),
-                    nuevoCliente.getFecha_nacimiento(),
-                    nuevoCliente.getGenero(),
-                    nuevoCliente.getDireccion(),
-                    nuevoCliente.getTelefono(),
-                    nuevoCliente.getCiudad(),
-                    nuevoCliente.getPassword());
+            OperacionesBD.InsertarCliente(nuevoCliente);
             salidaCliente.writeObject("msn desde el servidor: Cliente creado con exito");
             close();
             System.out.println("Fin de la conexión");

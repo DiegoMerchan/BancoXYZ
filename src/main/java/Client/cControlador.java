@@ -75,12 +75,10 @@ public class cControlador {
         entrada.nextLine();
         System.out.println("Por favor digite la ciudad del cliente:\n");
         int ciudad = entrada.nextInt();
-        entrada.nextLine();
-        System.out.println("Por favor digite la contraseña a asignar:\n");
-        String password = entrada.next();
+        
 
         // Se crea una nueva instancia de cliente del banco 
-        ClienteBanco clienteNuevo = new ClienteBanco(idCliente, nombre, apellido, fecha_nacimiento, genero, direccion, telefono, ciudad, password);
+        ClienteBanco clienteNuevo = new ClienteBanco(idCliente, nombre, apellido, fecha_nacimiento, genero, direccion, telefono, ciudad);
 
         System.out.println("Iniciando cliente\n");
         cli.NuevoCliente(clienteNuevo);//Se inicia el cliente

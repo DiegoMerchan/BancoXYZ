@@ -5,6 +5,7 @@
  */
 package Server;
 
+import Connection.ClienteBanco;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,7 +43,7 @@ public class OperacionesBD {
         return conexion;
     }
 
-    public static void InsertarCliente(int IdCliente, String Nombre, String Apellido, String Fecha_nacimiento, String Genero, String Direccion, int Telefono, int Ciudad, String password) {
+    public static void InsertarCliente(ClienteBanco n) {
 
         if (!conexion()) {
             System.out.println("Error al conectar a la base de datos");
@@ -50,15 +51,15 @@ public class OperacionesBD {
             try {
                 conn.setAutoCommit(false);
                 System.out.println("Iniciando insercion de datos");
-                SQL = "INSERT INTO Cliente VALUES (" + IdCliente + ", '" +
-                       Nombre + "', '" +
-                       Apellido + "', '" +
-                       Fecha_nacimiento + "', '" +
-                       Genero + "', '" + 
-                       Direccion + "', " +
-                       Telefono + "," + 
-                       Ciudad + ", '" + 
-                       password + "')";
+                SQL = "INSERT INTO Cliente VALUES (" +
+                       n.getIdCliente() + ", '" +
+                       n.getNombre() + "', '" +
+                       n.getApellido() + "', '" +
+                       n.getFecha_nacimiento() + "', '" +
+                       n.getGenero() + "', '" + 
+                       n.getDireccion() + "', " +
+                       n.getTelefono() + "," + 
+                       n.getCiudad() + ");";
                 
                 System.out.println("insercion terminada");
                 stmt.executeUpdate(SQL);  
