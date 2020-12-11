@@ -1,8 +1,6 @@
-CREATE DATABASE  IF NOT EXISTS `Banco` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `Banco`;
--- MySQL dump 10.13  Distrib 8.0.22, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.22, for Linux (x86_64)
 --
--- Host: 127.0.0.1    Database: Banco
+-- Host: 192.168.0.4    Database: Banco
 -- ------------------------------------------------------
 -- Server version	5.6.50
 
@@ -60,7 +58,6 @@ CREATE TABLE `Cliente` (
   `Direccion` varchar(45) DEFAULT NULL,
   `Telefono` varchar(45) DEFAULT NULL,
   `Ciudad_idCiudad` int(11) NOT NULL,
-  `contrasena` int(4) NOT NULL,
   PRIMARY KEY (`idCliente`,`Ciudad_idCiudad`),
   UNIQUE KEY `idCliente_UNIQUE` (`idCliente`),
   KEY `fk_Cliente_Ciudad1_idx` (`Ciudad_idCiudad`),
@@ -74,7 +71,7 @@ CREATE TABLE `Cliente` (
 
 LOCK TABLES `Cliente` WRITE;
 /*!40000 ALTER TABLE `Cliente` DISABLE KEYS */;
-INSERT INTO `Cliente` VALUES (1032475921,'Lewis','Hamilton','1985-03-13','M','Calle 33 #12-22','2344445',3,1234),(1038583016,'Charles','Leclerc','1979-01-24','M','Transversal 3 #64-32','7654321',4,1234),(1043187332,'Juan','Montoya','1981-05-06','M','Cra 2 #21-18','3456899',1,1234),(1046282042,'Mariana','Pajon','1983-12-21','F','Cra 3 #97-43','8765432',2,1234);
+INSERT INTO `Cliente` VALUES (80567123,'George','Rusell','1978-11-03','M','dddd','3456781',4),(1032475921,'Lewis','Hamilton','1985-03-13','M','Calle 33 #12-22','2344445',3),(1038583016,'Charles','Leclerc','1979-01-24','M','Transversal 3 #64-32','7654321',4),(1043187332,'Juan','Montoya','1981-05-06','M','Cra 2 #21-18','3456899',1),(1046282042,'Mariana','Pajon','1983-12-21','F','Cra 3 #97-43','8765432',2);
 /*!40000 ALTER TABLE `Cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -89,6 +86,7 @@ CREATE TABLE `Cuenta` (
   `Num` int(11) NOT NULL,
   `Saldo` double DEFAULT NULL,
   `Cliente_idCliente` int(11) NOT NULL,
+  `contrasena` varchar(4) NOT NULL,
   PRIMARY KEY (`Num`,`Cliente_idCliente`),
   KEY `fk_Cuenta_Cliente_idx` (`Cliente_idCliente`),
   CONSTRAINT `fk_Cuenta_Cliente` FOREIGN KEY (`Cliente_idCliente`) REFERENCES `Cliente` (`idCliente`)
@@ -101,7 +99,7 @@ CREATE TABLE `Cuenta` (
 
 LOCK TABLES `Cuenta` WRITE;
 /*!40000 ALTER TABLE `Cuenta` DISABLE KEYS */;
-INSERT INTO `Cuenta` VALUES (364986722,7339292,1032475921),(434676711,5678943,1038583016),(657335987,2345672,1046282042),(876356865,234678,1043187332);
+INSERT INTO `Cuenta` VALUES (364986722,7339292,1032475921,'1234'),(378903236,23455,80567123,'1234'),(434676711,5678943,1038583016,'1234'),(657335987,2345672,1046282042,'1234'),(876356865,234678,1043187332,'1234');
 /*!40000 ALTER TABLE `Cuenta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -194,4 +192,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-29 21:33:27
+-- Dump completed on 2020-12-10 23:00:17
