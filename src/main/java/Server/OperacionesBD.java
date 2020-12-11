@@ -49,8 +49,7 @@ public class OperacionesBD {
         } else {
             try {
                 conn.setAutoCommit(false);
-                System.out.println(""
-                        + "iniciando insercion de datos");
+                System.out.println("Iniciando insercion de datos");
                 SQL = "INSERT INTO Cliente VALUES (" + IdCliente + ", '" +
                        Nombre + "', '" +
                        Apellido + "', '" +
@@ -70,6 +69,30 @@ public class OperacionesBD {
             }
         }
 
+    }
+    
+    public static boolean ValidarUsuario(int numeroCuenta, String Password){
+        
+        boolean usuario_valido = false;
+        
+        if (!conexion()) {
+            System.out.println("Error al conectar a la base de datos");
+        } else {
+            try {
+                SQL = "SELECT cliente.Nombre, cliente.Apellido, cuenta.Cliente_idCliente, cuenta.Num, cuenta.contrasena" +
+                      "FROM Cuenta cuenta" +
+                      "LEFT JOIN Cliente cliente ON cuenta.Cliente_idCliente = cliente.idCliente" +
+                      "WHERE cuenta.Num = " + numeroCuenta +
+                      "AND cuenta.contrasena = " + Password + ";";
+            } catch (Exception e) {
+            }
+{
+                
+            }
+        }
+        
+        
+        return usuario_valido;
     }
 
 }
