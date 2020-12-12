@@ -1,6 +1,7 @@
 package Client;
 
 import Connection.ClienteBanco;
+import Connection.CuentaBanco;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -23,10 +24,10 @@ public class cControlador {
                     cControlador.crearCliente();
                     break;
                 case 2:
-
+                    
                     break;
                 case 3:
-
+                    cControlador.crearCuenta();
                     break;
                 case 4:
                     break;
@@ -83,6 +84,30 @@ public class cControlador {
         System.out.println("Iniciando cliente\n");
         cli.NuevoCliente(clienteNuevo);//Se inicia el cliente
 
+    }
+    
+    public static void crearCuenta() throws IOException{
+        
+        Cliente cli = new Cliente(); //Se crea el Socket cliente
+        
+        // pedimos por consola los datos de la nueva cuenta
+        System.out.println("Digite el numero de cuenta");
+        int num = entrada.nextInt();
+        entrada.nextLine();
+        System.out.println("Por favor digite el el saldo inicial:\n");
+        double saldo = entrada.nextDouble();
+        entrada.nextLine();
+        System.out.println("Digite el id del cliente\n");
+        int idCliente = entrada.nextInt();
+        entrada.nextLine();
+        System.out.println("Por favor digite la contraseña:\n");
+        String contra = entrada.nextLine();
+        
+        CuentaBanco c = new CuentaBanco(num,saldo,idCliente,contra);
+        
+        
+        System.out.println("Creando cuenta..\n");
+        cli.NuevaCuenta(c);//Se inicia el cliente
     }
 
 }

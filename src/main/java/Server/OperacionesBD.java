@@ -6,6 +6,7 @@
 package Server;
 
 import Connection.ClienteBanco;
+import Connection.CuentaBanco;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.sql.*;
@@ -88,6 +89,46 @@ public class OperacionesBD {
         }   
 
     }
+    
+    public static void InsertarCuenta(CuentaBanco n, ObjectOutputStream s) throws IOException {
+
+        if (!conexion()) {
+            System.out.println("Error al conectar a la base de datos");
+        } else {
+            try {
+                conn.setAutoCommit(false);
+                System.out.println("Iniciando insercion de datos");
+                SQL = "INSERT INTO cuenta VALUES(" +
+                        n.getNum()+","+
+                        n.getSaldo()+","+
+                        n.getIdCliente()+",'"+
+                        n.getContrasena()+"')";
+                stmt.executeUpdate(SQL);  
+                conn.commit();
+                System.out.println("CUENTA CREADA CON EXITO");
+                s.writeObject("msn desde el servidor: Cuenta creada con exito");
+   
+            } catch (SQLException ex) {
+                try {
+                    System.out.println(ex.getMessage());
+                    System.out.println("ERROR LOS DATOS NO SE GUARDARON");
+                    s.writeObject("msn desde el servidor: Error, la cuenta no se creo");
+                    conn.rollback();
+                    
+                } catch (SQLException ex1) {
+                    Logger.getLogger(OperacionesBD.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+                
+            }finally{
+                 System.out.println("Transaccion terminada");
+            }
+        }   
+
+    }
+    
+    
+    
+    
     
     public static boolean ValidarUsuario(int numeroCuenta, String Password){
         

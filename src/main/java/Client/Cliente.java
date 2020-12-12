@@ -1,6 +1,7 @@
 package Client;
 
 import Connection.ClienteBanco;
+import Connection.CuentaBanco;
 import Connection.Sconnector;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -49,5 +50,41 @@ public class Cliente extends Sconnector {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+    
+    public void NuevaCuenta(CuentaBanco c){
+        
+       try {
+            //Flujo de datos hacia el servidor
+            salidaServidor = new ObjectOutputStream(cs.getOutputStream());
+            entradaServidor = new ObjectInputStream(cs.getInputStream());
+            System.out.println("Stream de objetos creado con exito");
+
+            // enviamos el objeto al servidor 
+            salidaServidor.writeObject("crearCuenta");// indicamos tipo transaccion al servidor
+
+            System.out.println("Tipo de transaccion enviada al servidor");
+
+            salidaServidor.writeObject(c);
+
+            System.out.println("Nueva cuenta enviado al servidor");
+
+            try {
+                msn = (String) entradaServidor.readObject();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            System.out.println(msn);
+            //Fin de la conexión
+            salidaServidor.close();
+            cs.close();
+
+            System.out.println("Conexion cerrada");
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }        
+        
     }
 }

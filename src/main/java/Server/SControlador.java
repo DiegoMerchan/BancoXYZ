@@ -13,5 +13,6 @@ public class SControlador {
         Servidor serv = new Servidor(); // se crea el servidor
         System.out.println("Iniciando servidor...\n ");
         serv.startServer();
+        
     }   
 }

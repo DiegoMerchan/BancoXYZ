@@ -1,6 +1,7 @@
-                                                              package Server;
+package Server;
 
 import Connection.ClienteBanco;
+import Connection.CuentaBanco;
 import Connection.Sconnector;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -9,6 +10,7 @@ import java.io.ObjectOutputStream;
 public class Servidor extends Sconnector {
 
     ClienteBanco nuevoCliente;
+    CuentaBanco nuevaCuenta;
     String tipo;
 
     public Servidor() throws IOException {
@@ -16,6 +18,7 @@ public class Servidor extends Sconnector {
     }
 
     public void startServer() throws ClassNotFoundException { // Con este metodo iniciamos el server
+      
         try {
             System.out.println("Esperando conexión en puerto " + ss.getLocalPort()); //Esperando conexión
             cs = ss.accept(); //Accept comienza el socket y espera una conexión desde un cliente
@@ -27,11 +30,15 @@ public class Servidor extends Sconnector {
                 System.out.println("Ejecutando crear cliente...\n");
                 crearCliente();
             }
+            if ("crearCuenta".equals(tipo)) {
+            System.out.println("Ejecutando crear nueva cuenta...\n");
+            crearCuenta();
+            }
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
+       
     }
 
     private void crearCliente() throws ClassNotFoundException {
@@ -41,7 +48,22 @@ public class Servidor extends Sconnector {
             nuevoCliente = (ClienteBanco) entradaCliente.readObject();
             System.out.println("Recibido en el servidor un nuevo cliente: " + nuevoCliente.getNombre());
             OperacionesBD.InsertarCliente(nuevoCliente,salidaCliente);
-           // salidaCliente.writeObject("msn desde el servidor: Cliente creado con exito");
+            close();
+            System.out.println("Fin de la conexión");
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+    
+    private void crearCuenta() throws ClassNotFoundException {
+
+        try {
+
+            nuevaCuenta = (CuentaBanco) entradaCliente.readObject();
+            System.out.println("Recibido en el servidor una nueva cuenta: " + nuevaCuenta.getNum());
+            OperacionesBD.InsertarCuenta(nuevaCuenta,salidaCliente);
             close();
             System.out.println("Fin de la conexión");
 
