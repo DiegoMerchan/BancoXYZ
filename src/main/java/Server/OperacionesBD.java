@@ -6,6 +6,8 @@
 package Server;
 
 import Connection.ClienteBanco;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,7 +45,7 @@ public class OperacionesBD {
         return conexion;
     }
 
-    public static void InsertarCliente(ClienteBanco n) {
+    public static void InsertarCliente(ClienteBanco n, ObjectOutputStream s) throws IOException {
 
         if (!conexion()) {
             System.out.println("Error al conectar a la base de datos");
@@ -61,14 +63,29 @@ public class OperacionesBD {
                        n.getTelefono() + "," + 
                        n.getCiudad() + ");";
                 
-                System.out.println("insercion terminada");
+               
                 stmt.executeUpdate(SQL);  
                 conn.commit();
+                System.out.println("CLIENTE GUARDADO CON EXITO");
+                s.writeObject("msn desde el servidor: Cliente creado con exito");
+                
+                
                 
             } catch (SQLException ex) {
-                System.out.println(ex.getSQLState());
+                try {
+                    System.out.println(ex.getMessage());
+                    System.out.println("ERROR LOS DATOS NO SE GUARDARON");
+                    s.writeObject("msn desde el servidor: Error, el cliente no se creo");
+                    conn.rollback();
+                    
+                } catch (SQLException ex1) {
+                    Logger.getLogger(OperacionesBD.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+                
+            }finally{
+                 System.out.println("Transaccion terminada");
             }
-        }
+        }   
 
     }
     

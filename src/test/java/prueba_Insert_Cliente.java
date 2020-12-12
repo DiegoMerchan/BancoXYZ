@@ -22,7 +22,7 @@ public class prueba_Insert_Cliente {
         
         Cliente cli = new Cliente();
         
-        int idCliente = 123453;
+        int idCliente = 123445;
         String nombre = "Diego";
         String apellido = "Merchan";
         String fecha_nacimiento = "1992-08-10";
