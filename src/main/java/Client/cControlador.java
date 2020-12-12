@@ -2,6 +2,7 @@ package Client;
 
 import Connection.ClienteBanco;
 import Connection.CuentaBanco;
+import Connection.Movimiento;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -18,6 +19,7 @@ public class cControlador {
             cControlador.menu();
             System.out.println("");
             n = cControlador.entrada.nextInt();
+            entrada.nextLine();
 
             switch (n) {
                 case 1:
@@ -32,10 +34,16 @@ public class cControlador {
                 case 4:
                     break;
                 case 5:
+                    consignar();
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    break;                   
 
             }
 
-        } while (n < 6);
+        } while (n < 8);
 
     }
 
@@ -48,7 +56,8 @@ public class cControlador {
         System.out.println("4. Cerrar cuenta.");
         System.out.println("5. Hacer consignacion.");
         System.out.println("6. Hacer retiro");
-        System.out.println("7. Salir \n");
+        System.out.println("7. Consultar Saldo");
+        System.out.println("8. Salir \n");
 
     }
 
@@ -94,7 +103,7 @@ public class cControlador {
         System.out.println("Digite el numero de cuenta");
         int num = entrada.nextInt();
         entrada.nextLine();
-        System.out.println("Por favor digite el el saldo inicial:\n");
+        System.out.println("Por favor digite el saldo inicial:\n");
         double saldo = entrada.nextDouble();
         entrada.nextLine();
         System.out.println("Digite el id del cliente\n");
@@ -108,6 +117,34 @@ public class cControlador {
         
         System.out.println("Creando cuenta..\n");
         cli.NuevaCuenta(c);//Se inicia el cliente
+    }
+    
+        public static void consignar() throws IOException{
+        
+        Cliente cli = new Cliente(); //Se crea el Socket cliente
+        
+        // pedimos por consola los datos de la nueva cuenta
+        System.out.println("Por favor digite la fecha de de consignacion: (YYYY/MM/DD)\n");
+        String fecha = entrada.nextLine();
+        System.out.println("Por favor digite el concepto:\n");
+        String concepto = entrada.nextLine();
+        System.out.println("Por favor digite valor de la consignacion:\n");
+        double valor = entrada.nextDouble();
+        entrada.nextLine();
+        int tipo = 1;
+        System.out.println("Por favor digite la cuenta a consignar:\n");
+        int cuenta = entrada.nextInt();
+        entrada.nextLine();
+        System.out.println("Por favor digite el ID donde va a consignar:\n");
+        int idCliente = entrada.nextInt();
+        entrada.nextLine();
+        
+        
+        Movimiento m = new Movimiento(fecha, concepto, valor, tipo, cuenta, idCliente);
+        
+        
+        System.out.println("Haciendo consignacion...\n");
+        cli.Consignacion(m);//Se inicia el cliente
     }
 
 }

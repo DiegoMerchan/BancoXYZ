@@ -2,6 +2,7 @@ package Server;
 
 import Connection.ClienteBanco;
 import Connection.CuentaBanco;
+import Connection.Movimiento;
 import Connection.Sconnector;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -12,6 +13,7 @@ public class Servidor extends Sconnector {
     ClienteBanco nuevoCliente;
     CuentaBanco nuevaCuenta;
     String tipo;
+    Movimiento consignacion;
 
     public Servidor() throws IOException {
         super("servidor"); // iniciamos una instancia de Socket tipo servidor
@@ -31,8 +33,13 @@ public class Servidor extends Sconnector {
                 crearCliente();
             }
             if ("crearCuenta".equals(tipo)) {
-            System.out.println("Ejecutando crear nueva cuenta...\n");
-            crearCuenta();
+                System.out.println("Ejecutando crear nueva cuenta...\n");
+                crearCuenta();
+            }
+            
+            if ("consignar".equals(tipo)) {
+                System.out.println("Ejecutando Consignacion...\n");
+                consignacion();
             }
 
         } catch (IOException e) {
@@ -72,6 +79,24 @@ public class Servidor extends Sconnector {
         }
 
     }
+    
+    private void consignacion() throws ClassNotFoundException {
+
+        try {
+
+            consignacion = (Movimiento) entradaCliente.readObject();
+            System.out.println("Recibido en el servidor una consignacion para :" + consignacion.getCuenta());
+            OperacionesBD.consignar(consignacion,salidaCliente);
+            close();
+            System.out.println("Fin de la conexión");
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+    
+    
 
     private void close() {
 

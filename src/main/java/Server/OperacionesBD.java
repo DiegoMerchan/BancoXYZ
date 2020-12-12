@@ -7,6 +7,7 @@ package Server;
 
 import Connection.ClienteBanco;
 import Connection.CuentaBanco;
+import Connection.Movimiento;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.sql.*;
@@ -127,6 +128,43 @@ public class OperacionesBD {
     }
     
     
+    public static void consignar(Movimiento m, ObjectOutputStream s) throws IOException {
+
+        if (!conexion()) {
+            System.out.println("Error al conectar a la base de datos");
+        } else {
+            try {
+                conn.setAutoCommit(false);
+                System.out.println("Iniciando insercion de datos");
+                SQL = "INSERT INTO movimiento (Fecha_movimiento,Concepto,Valor,Tipo_movimiento_idTipo,Cuenta_Num,Cuenta_Cliente_idCliente) VALUES ('" +
+                m.getFecha()+"','"+
+                m.getConcepto()+"',"+
+                m.getValor()+","+
+                m.getTipo()+","+
+                m.getCuenta()+","+
+                m.getIdCliente()+");";
+                stmt.executeUpdate(SQL);  
+                conn.commit();
+                System.out.println("CONSIGNACION EXITOSA");
+                s.writeObject("msn desde el servidor: Consignacion exitosa");
+   
+            } catch (SQLException ex) {
+                try {
+                    System.out.println(ex.getMessage());
+                    System.out.println("ERROR la coosignacion no se hizo");
+                    s.writeObject("msn desde el servidor: Error, la consignacion no se hizo");
+                    conn.rollback();
+                    
+                } catch (SQLException ex1) {
+                    Logger.getLogger(OperacionesBD.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+                
+            }finally{
+                 System.out.println("Transaccion terminada");
+            }
+        }   
+
+    }
     
     
     
