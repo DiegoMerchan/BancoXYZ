@@ -26,7 +26,7 @@ public class cControlador {
                     cControlador.crearCliente();
                     break;
                 case 2:
-                    
+
                     break;
                 case 3:
                     cControlador.crearCuenta();
@@ -39,7 +39,7 @@ public class cControlador {
                 case 6:
                     break;
                 case 7:
-                    break;                   
+                    break;
 
             }
 
@@ -85,7 +85,6 @@ public class cControlador {
         entrada.nextLine();
         System.out.println("Por favor digite la ciudad del cliente:\n");
         int ciudad = entrada.nextInt();
-        
 
         // Se crea una nueva instancia de cliente del banco 
         ClienteBanco clienteNuevo = new ClienteBanco(idCliente, nombre, apellido, fecha_nacimiento, genero, direccion, telefono, ciudad);
@@ -94,11 +93,13 @@ public class cControlador {
         cli.NuevoCliente(clienteNuevo);//Se inicia el cliente
 
     }
+
     
-    public static void crearCuenta() throws IOException{
-        
+    //Método para crear una nueva cuenta
+    public static void crearCuenta() throws IOException {
+
         Cliente cli = new Cliente(); //Se crea el Socket cliente
-        
+
         // pedimos por consola los datos de la nueva cuenta
         System.out.println("Digite el numero de cuenta");
         int num = entrada.nextInt();
@@ -111,18 +112,18 @@ public class cControlador {
         entrada.nextLine();
         System.out.println("Por favor digite la contraseña:\n");
         String contra = entrada.nextLine();
-        
-        CuentaBanco c = new CuentaBanco(num,saldo,idCliente,contra);
-        
-        
+
+        CuentaBanco c = new CuentaBanco(num, saldo, idCliente, contra);
+
         System.out.println("Creando cuenta..\n");
         cli.NuevaCuenta(c);//Se inicia el cliente
     }
-    
-        public static void consignar() throws IOException{
-        
+
+    //Método para agregar saldo
+    public static void consignar() throws IOException {
+
         Cliente cli = new Cliente(); //Se crea el Socket cliente
-        
+
         // pedimos por consola los datos de la nueva cuenta
         System.out.println("Por favor digite la fecha de de consignacion: (YYYY/MM/DD)\n");
         String fecha = entrada.nextLine();
@@ -138,11 +139,9 @@ public class cControlador {
         System.out.println("Por favor digite el ID donde va a consignar:\n");
         int idCliente = entrada.nextInt();
         entrada.nextLine();
-        
-        
+
         Movimiento m = new Movimiento(fecha, concepto, valor, tipo, cuenta, idCliente);
-        
-        
+
         System.out.println("Haciendo consignacion...\n");
         cli.Consignacion(m);//Se inicia el cliente
     }

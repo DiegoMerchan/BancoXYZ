@@ -1,10 +1,9 @@
-
 package Connection;
 
 import java.io.Serializable;
 
-
 public class CuentaBanco implements Serializable {
+
     private int num;
     private double saldo;
     private int idCliente;
@@ -75,7 +74,5 @@ public class CuentaBanco implements Serializable {
     public void setContrasena(String Contrasena) {
         this.Contrasena = Contrasena;
     }
-    
-    
-    
+
 }

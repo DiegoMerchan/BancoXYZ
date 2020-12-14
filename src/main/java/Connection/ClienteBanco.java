@@ -2,8 +2,8 @@ package Connection;
 
 import java.io.Serializable;
 
-public class ClienteBanco implements Serializable{
-    
+public class ClienteBanco implements Serializable {
+
     private int idCliente;
     private String nombre;
     private String apellido;
@@ -11,7 +11,7 @@ public class ClienteBanco implements Serializable{
     private String genero;
     private String direccion;
     private int telefono;
-    private int ciudad; 
+    private int ciudad;
 
     public ClienteBanco(int idCliente, String nombre, String apellido, String fecha_nacimiento, String genero, String direccion, int telefono, int ciudad) {
         this.idCliente = idCliente;
@@ -22,10 +22,8 @@ public class ClienteBanco implements Serializable{
         this.direccion = direccion;
         this.telefono = telefono;
         this.ciudad = ciudad;
-        
-    }
 
-   
+    }
 
     /**
      * @return the idCliente
@@ -54,7 +52,8 @@ public class ClienteBanco implements Serializable{
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-     public String getApellido() {
+
+    public String getApellido() {
         return apellido;
     }
 
@@ -134,8 +133,5 @@ public class ClienteBanco implements Serializable{
     public void setCiudad(int ciudad) {
         this.ciudad = ciudad;
     }
-    
-   
-
 
 }

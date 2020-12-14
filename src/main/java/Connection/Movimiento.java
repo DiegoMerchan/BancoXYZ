@@ -1,10 +1,9 @@
-
 package Connection;
 
 import java.io.Serializable;
 
 public class Movimiento implements Serializable {
-    
+
     private String fecha;
     private String concepto;
     private double valor;
@@ -107,8 +106,5 @@ public class Movimiento implements Serializable {
     public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
     }
-    
-    
-    
-    
+
 }

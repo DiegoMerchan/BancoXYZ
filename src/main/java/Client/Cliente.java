@@ -52,10 +52,10 @@ public class Cliente extends Sconnector {
             System.out.println(e.getMessage());
         }
     }
-    
-    public void NuevaCuenta(CuentaBanco c){
-        
-       try {
+
+    public void NuevaCuenta(CuentaBanco c) {
+
+        try {
             //Flujo de datos hacia el servidor
             salidaServidor = new ObjectOutputStream(cs.getOutputStream());
             entradaServidor = new ObjectInputStream(cs.getInputStream());
@@ -85,13 +85,13 @@ public class Cliente extends Sconnector {
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
-        }        
-        
+        }
+
     }
-    
-        public void Consignacion(Movimiento m){
-        
-       try {
+
+    public void Consignacion(Movimiento m) {
+
+        try {
             //Flujo de datos hacia el servidor
             salidaServidor = new ObjectOutputStream(cs.getOutputStream());
             entradaServidor = new ObjectInputStream(cs.getInputStream());
@@ -121,8 +121,8 @@ public class Cliente extends Sconnector {
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
-        }        
-        
+        }
+
     }
-    
+
 }
