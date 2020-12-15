@@ -3,6 +3,7 @@ package Server;
 import Connection.ClienteBanco;
 import Connection.CuentaBanco;
 import Connection.Movimiento;
+import Connection.SaldoCliente;
 import Connection.Sconnector;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -14,6 +15,7 @@ public class Servidor extends Sconnector {
     CuentaBanco nuevaCuenta;
     String tipo;
     Movimiento consignacion, retiro;
+    SaldoCliente saldo;
 
     public Servidor() throws IOException {
         super("servidor"); // iniciamos una instancia de Socket tipo servidor
@@ -46,6 +48,11 @@ public class Servidor extends Sconnector {
                 System.out.println("Ejecutando retiro...\n");
                 retiro();
             }
+            if ("saldo".equals(tipo)) {
+                System.out.println("Ejecutando consulta de saldo...\n");
+                saldo();
+            }
+             
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -112,6 +119,24 @@ public class Servidor extends Sconnector {
             retiro = (Movimiento) entradaCliente.readObject();
             System.out.println("Recibido en el servidor un retiro de :" + retiro.getIdCliente());
             OperacionesBD.retirar(retiro, salidaCliente);
+            close();
+            System.out.println("Fin de la conexión");
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+       
+       
+    //Metodo para consultar el saldo
+    private void saldo() throws ClassNotFoundException {
+
+        try {
+
+            saldo = (SaldoCliente) entradaCliente.readObject();
+            System.out.println("Recibido en el servidor una consulta de saldo: " + saldo.getIdCliente());
+            OperacionesBD.saldo(saldo, salidaCliente);
             close();
             System.out.println("Fin de la conexión");
 

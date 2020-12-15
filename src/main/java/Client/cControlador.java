@@ -3,6 +3,7 @@ package Client;
 import Connection.ClienteBanco;
 import Connection.CuentaBanco;
 import Connection.Movimiento;
+import Connection.SaldoCliente;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -40,6 +41,7 @@ public class cControlador {
                     cControlador.retirar();
                     break;
                 case 7:
+                    cControlador.consultarSaldo();
                     break;
             }
 
@@ -171,6 +173,28 @@ public class cControlador {
 
         System.out.println("Haciendo retiro...\n");
         cli.Retiro(m);//Se inicia el cliente
+    }
+    
+    
+       //Método para crear una nueva cuenta
+    public static void consultarSaldo() throws IOException {
+
+        Cliente cli = new Cliente(); //Se crea el Socket cliente
+
+        // pedimos por consola los datos 
+        System.out.println("Digite el numero de cuenta");
+        int num = entrada.nextInt();
+        entrada.nextLine();
+        System.out.println("Digite el id del cliente\n");
+        int idCliente = entrada.nextInt();
+        entrada.nextLine();
+        System.out.println("Por favor digite la contraseña:\n");
+        String contra = entrada.nextLine();
+
+        SaldoCliente s = new SaldoCliente(num, idCliente, contra);
+
+        System.out.println("Consultando Saldo...\n");
+        cli.Saldo(s);//Se inicia el cliente
     }
 
 }

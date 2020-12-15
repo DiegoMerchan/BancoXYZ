@@ -8,6 +8,7 @@ package Server;
 import Connection.ClienteBanco;
 import Connection.CuentaBanco;
 import Connection.Movimiento;
+import Connection.SaldoCliente;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.sql.*;
@@ -201,6 +202,93 @@ public class OperacionesBD {
         }
 
     }
+    
+    
+
+
+    
+    
+        public static void saldo(SaldoCliente l, ObjectOutputStream s) throws IOException {
+
+        if (!conexion()) {
+            System.out.println("Error al conectar a la base de datos");
+        } else {
+            
+            // hacer update al saldo
+            
+            update(l);
+            
+            //fin update al saldo
+            
+            try {
+                conn.setAutoCommit(false);
+                System.out.println("Iniciando consulta de saldo");
+                SQL = "SELECT cuenta.Saldo FROM cuenta WHERE cuenta.Cliente_idCliente =" + l.getIdCliente() + ";"
+                        ;
+                ResultSet rs = stmt.executeQuery(SQL);
+                conn.commit();
+               
+                if (rs.next()) {
+                     int x = rs.getInt(1);
+                     System.out.println("CONSULTA EXITOSA. saldo:" + x);
+                     s.writeObject("msn desde el servidor: el saldo es: " + x );
+                    
+                }
+               
+
+            } catch (SQLException ex) {
+                try {
+                    System.out.println(ex.getMessage());
+                    System.out.println("ERROR la consulta no se hizo");
+                    s.writeObject("msn desde el servidor: Error, la consulta no se hizo");
+                    conn.rollback();
+
+                } catch (SQLException ex1) {
+                    Logger.getLogger(OperacionesBD.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+
+            } finally {
+                System.out.println("Transaccion terminada");
+            }
+        }
+
+    }
+        
+     public static void update(SaldoCliente l) throws IOException {
+
+        if (!conexion()) {
+            System.out.println("Error al conectar a la base de datos");
+        } else {
+            try {
+                conn.setAutoCommit(false);
+                System.out.println("Iniciando insercion de update saldo");
+                SQL = "update cuenta set cuenta.Saldo =  ( select  ( select sum(movimiento.valor) as total_consignaciones  from movimiento where movimiento.Tipo_movimiento_idTipo = 1 and movimiento.Cuenta_Num ="+ l.getNumeroCuenta()+ ")-(select sum(movimiento.valor) as total_retiros  from movimiento where movimiento.Tipo_movimiento_idTipo = 2 and movimiento.Cuenta_Num ="+ l.getNumeroCuenta()+ ") ) where cuenta.Cliente_idCliente =" + l.getIdCliente()+ ";" 
+                        ;
+                stmt.executeUpdate(SQL);
+                conn.commit();
+                System.out.println("UPDATE SALDO EXITOSO");
+               
+
+            } catch (SQLException ex) {
+                try {
+                    System.out.println(ex.getMessage());
+                    System.out.println("ERROR el update no se hizo");
+                   
+                    conn.rollback();
+
+                } catch (SQLException ex1) {
+                    Logger.getLogger(OperacionesBD.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+
+            } finally {
+               
+            }
+        }
+
+    }    
+        
+        
+}
 
     /**public static boolean ValidarUsuario(int numeroCuenta, String Password) {
 
@@ -225,4 +313,4 @@ public class OperacionesBD {
         return usuario_valido;
     }*/
 
-}
+
