@@ -13,7 +13,7 @@ public class Servidor extends Sconnector {
     ClienteBanco nuevoCliente;
     CuentaBanco nuevaCuenta;
     String tipo;
-    Movimiento consignacion;
+    Movimiento consignacion, retiro;
 
     public Servidor() throws IOException {
         super("servidor"); // iniciamos una instancia de Socket tipo servidor
@@ -38,8 +38,13 @@ public class Servidor extends Sconnector {
             }
 
             if ("consignar".equals(tipo)) {
-                System.out.println("Ejecutando Consignacion...\n");
+                System.out.println("Ejecutando consignacion...\n");
                 consignacion();
+            }
+            
+             if ("retirar".equals(tipo)) {
+                System.out.println("Ejecutando retiro...\n");
+                retiro();
             }
 
         } catch (IOException e) {
@@ -90,6 +95,23 @@ public class Servidor extends Sconnector {
             consignacion = (Movimiento) entradaCliente.readObject();
             System.out.println("Recibido en el servidor una consignacion para :" + consignacion.getCuenta());
             OperacionesBD.consignar(consignacion, salidaCliente);
+            close();
+            System.out.println("Fin de la conexión");
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+    
+       //Método para realizar retiro
+       private void retiro() throws ClassNotFoundException {
+
+        try {
+
+            retiro = (Movimiento) entradaCliente.readObject();
+            System.out.println("Recibido en el servidor un retiro de :" + retiro.getIdCliente());
+            OperacionesBD.retirar(retiro, salidaCliente);
             close();
             System.out.println("Fin de la conexión");
 

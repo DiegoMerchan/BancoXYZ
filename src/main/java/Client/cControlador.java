@@ -34,13 +34,13 @@ public class cControlador {
                 case 4:
                     break;
                 case 5:
-                    consignar();
+                    cControlador.consignar();
                     break;
                 case 6:
+                    cControlador.retirar();
                     break;
                 case 7:
                     break;
-
             }
 
         } while (n < 8);
@@ -125,7 +125,7 @@ public class cControlador {
         Cliente cli = new Cliente(); //Se crea el Socket cliente
 
         // pedimos por consola los datos de la nueva cuenta
-        System.out.println("Por favor digite la fecha de de consignacion: (YYYY/MM/DD)\n");
+        System.out.println("Por favor digite la fecha de consignacion: (YYYY/MM/DD)\n");
         String fecha = entrada.nextLine();
         System.out.println("Por favor digite el concepto:\n");
         String concepto = entrada.nextLine();
@@ -144,6 +144,33 @@ public class cControlador {
 
         System.out.println("Haciendo consignacion...\n");
         cli.Consignacion(m);//Se inicia el cliente
+    }
+    
+        //Método para retirar saldo
+    public static void retirar() throws IOException {
+
+        Cliente cli = new Cliente(); //Se crea el Socket cliente
+
+        // pedimos por consola los datos de la nueva cuenta
+        System.out.println("Por favor digite la fecha de retiro: (YYYY/MM/DD)\n");
+        String fecha = entrada.nextLine();
+        System.out.println("Por favor digite el concepto:\n");
+        String concepto = entrada.nextLine();
+        System.out.println("Por favor digite valor del retiro:\n");
+        double valor = entrada.nextDouble();
+        entrada.nextLine();
+        int tipo = 2;  // 2 para tipo de movimiento = retiro
+        System.out.println("Por favor digite la cuenta a retirar:\n");
+        int cuenta = entrada.nextInt();
+        entrada.nextLine();
+        System.out.println("Por favor digite el ID donde del cliente asociado a la cuenta:\n");
+        int idCliente = entrada.nextInt();
+        entrada.nextLine();
+
+        Movimiento m = new Movimiento(fecha, concepto, valor, tipo, cuenta, idCliente);
+
+        System.out.println("Haciendo retiro...\n");
+        cli.Retiro(m);//Se inicia el cliente
     }
 
 }
